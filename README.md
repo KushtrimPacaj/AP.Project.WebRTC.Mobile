@@ -1,5 +1,7 @@
 # AP.Project.WebRTC.Mobile
 
+![Android CI](https://github.com/KushtrimPacaj/AP.Project.WebRTC.Mobile/workflows/Android%20CI/badge.svg?branch=master)
+
 This is a project for the course "Advanced Programming" ( UBT - MS CSA ).  
 
 
