@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ master , feature/setup_ci_cd ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
