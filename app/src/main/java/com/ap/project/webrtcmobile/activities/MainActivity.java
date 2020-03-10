@@ -1,4 +1,4 @@
-package com.ap.project.webrtcmobile;
+package com.ap.project.webrtcmobile.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
