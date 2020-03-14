@@ -42,14 +42,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //TODO replace this with logic that gets the input from user
-//        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//
-//            APPreferences.setUserName("Kushtrim");
-//            APPreferences.setUserId(UUID.randomUUID().toString());
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-//        }, 2000);
-
     }
 }
