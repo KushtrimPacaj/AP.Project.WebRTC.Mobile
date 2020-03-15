@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.ap.project.webrtcmobile.custom_views.DrawableObjects.SerializablePath;
 import com.ap.project.webrtcmobile.interactors.interfaces.SignalingChannel;
 import com.ap.project.webrtcmobile.interactors.interfaces.SignalingChannelEvents;
 import com.ap.project.webrtcmobile.models.AnswerCallModel;
@@ -12,6 +13,7 @@ import com.ap.project.webrtcmobile.models.CallModel;
 import com.ap.project.webrtcmobile.models.ClientInfo;
 import com.ap.project.webrtcmobile.models.DeclineCallModel;
 import com.ap.project.webrtcmobile.models.EndCallModel;
+import com.ap.project.webrtcmobile.models.FabricPathModel;
 import com.ap.project.webrtcmobile.models.IceCandidateModel;
 import com.ap.project.webrtcmobile.models.SdpModel;
 import com.ap.project.webrtcmobile.models.WebrtcOfferAnswerExchangeModel;
@@ -19,6 +21,7 @@ import com.ap.project.webrtcmobile.utils.APPreferences;
 import com.ap.project.webrtcmobile.utils.LogTag;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.webrtc.IceCandidate;
@@ -189,6 +192,12 @@ public class SignalingChannelImpl implements SignalingChannel {
 
             signalingChannelEvents.onUserOffline(model);
         });
+        socket.on(SocketIOMethods.ON_RECEIVED_FABRIC_PATH, args -> {
+            FabricPathModel model = parseSingleArgument(FabricPathModel.class, args);
+            Log.d(LogTag.CALLS, "SocketIOMethods.ON_RECEIVED_FABRIC_PATH " + model);
+
+            signalingChannelEvents.onReceivedFabricPath(model);
+        });
 
     }
 
@@ -281,7 +290,15 @@ public class SignalingChannelImpl implements SignalingChannel {
         socket.emit(SocketIOMethods.SEND_ANSWER, jsonify(model));
 
     }
+    public void sendFabric( String callerId, SerializablePath serializablePath) {
+        Log.d(LogTag.CALLS, String.format("SocketIOMethods.SEND_FABRIC_PATH:  toUserId %s", callerId));
+        FabricPathModel model = new FabricPathModel(
+                callerId,
+                serializablePath
+        );
 
+        socket.emit(SocketIOMethods.SEND_FABRIC_PATH, jsonify(model));
+    }
 
     public void destroyInstance() {
         Log.d(LogTag.CALLS, "destroy socket instance");
@@ -332,4 +349,6 @@ public class SignalingChannelImpl implements SignalingChannel {
             return "http://192.168.1.118:3000/";
         }
     }
+
+
 }

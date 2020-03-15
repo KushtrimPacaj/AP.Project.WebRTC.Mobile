@@ -6,6 +6,7 @@ import com.ap.project.webrtcmobile.models.CallModel;
 import com.ap.project.webrtcmobile.models.ClientInfo;
 import com.ap.project.webrtcmobile.models.DeclineCallModel;
 import com.ap.project.webrtcmobile.models.EndCallModel;
+import com.ap.project.webrtcmobile.models.FabricPathModel;
 import com.ap.project.webrtcmobile.models.IceCandidateModel;
 import com.ap.project.webrtcmobile.models.WebrtcOfferAnswerExchangeModel;
 
@@ -29,5 +30,7 @@ public interface SignalingChannelEvents {
     void onUserOffline(ClientInfo model);
 
     void onUserOnline(ClientInfo model);
+
+    void onReceivedFabricPath(FabricPathModel model);
 }
 

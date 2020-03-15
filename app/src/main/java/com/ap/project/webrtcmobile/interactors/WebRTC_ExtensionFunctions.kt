@@ -36,3 +36,14 @@ fun SurfaceViewRenderer.replaceTrackInRenderer(newVideoTrack: VideoTrack) {
     visibility = View.VISIBLE
 
 }
+
+@Synchronized
+fun SurfaceViewRenderer.swapFeedsWith(otherRenderer: SurfaceViewRenderer) {
+    val myVideoTrack = this.getTag(R.id.videoTrack) as VideoTrack?
+    val otherVideoTrack = otherRenderer.getTag(R.id.videoTrack) as VideoTrack?
+
+
+    otherVideoTrack?.let { replaceTrackInRenderer(it) }
+    myVideoTrack?.let { otherRenderer.replaceTrackInRenderer(it) }
+
+}

@@ -19,6 +19,7 @@ import com.ap.project.webrtcmobile.events.*
 import com.ap.project.webrtcmobile.interactors.CallModelInteractor
 import com.ap.project.webrtcmobile.interactors.SignalingChannelImpl
 import com.ap.project.webrtcmobile.interactors.WebRtcInteractor
+import com.ap.project.webrtcmobile.interactors.interfaces.SignalingChannel
 import com.ap.project.webrtcmobile.interactors.interfaces.SignalingChannelEvents
 import com.ap.project.webrtcmobile.models.*
 import com.ap.project.webrtcmobile.utils.APPreferences
@@ -35,7 +36,7 @@ class CallService : Service(), SignalingChannelEvents {
     private var pendingActionsToExecuteAfterViewHasStarted = Collections.synchronizedList(ArrayList<() -> Unit>())
 
     private lateinit var webRtcInteractor: WebRtcInteractor
-    private lateinit var signalingChannel: SignalingChannelImpl
+    private lateinit var signalingChannel: SignalingChannel
     private val callModelInteractor = CallModelInteractor.getInstance();
 
     private val eventBus get() = EventBus.getDefault()
@@ -182,6 +183,10 @@ class CallService : Service(), SignalingChannelEvents {
         webRtcInteractor.onUserJoined(callModelInteractor.callerId)
     }
 
+    override fun onReceivedFabricPath(model: FabricPathModel) {
+        EventBus.getDefault().post(PathReceivedEvent(model.serializablePath))
+    }
+
 
     override fun onReceivedOffer(model: WebrtcOfferAnswerExchangeModel?) {
         webRtcInteractor.onReceivedOffer(model)
@@ -225,6 +230,11 @@ class CallService : Service(), SignalingChannelEvents {
                 APPreferences.userId!!,
                 event.userId
         ))
+    }
+
+    @Subscribe
+    public fun onEvent(event: PathCreatedEvent) {
+        signalingChannel.sendFabric(callModelInteractor.callerId,event.serializablePath)
     }
 
 

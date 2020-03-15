@@ -30,4 +30,9 @@ object SocketIOMethods {
     const val ON_USER_ONLINE = "onUserOnline"
     const val ON_USER_DISCONNECTED = "onUserDisconnected"
 
+
+
+    const val SEND_FABRIC_PATH = "sendFabricPath"
+    const val ON_RECEIVED_FABRIC_PATH = "onReceivedFabricPath"
+
 }
