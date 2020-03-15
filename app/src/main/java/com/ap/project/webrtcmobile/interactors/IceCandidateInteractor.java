@@ -15,6 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * This class handles IceCandidate receiving and adding them to peer connection.
+ *
+ * If an ICE arrives from remote peer, but offer-answer flow hasn't yet finished (e.g. we dont have a remote description )
+ * then we shouldn't add ICE to that peer, but wait until offer-answer finishes.
+ *
+ * If an ICE arrives before its time, it is saved in a list below, and when offer-answer finishes, the saved ICE are added
+ * to the peer connection
+ */
 public class IceCandidateInteractor {
 
     private SimpleArrayMap<String, List<IceCandidate>> queuedIceCandidateMap = new SimpleArrayMap<>(5);

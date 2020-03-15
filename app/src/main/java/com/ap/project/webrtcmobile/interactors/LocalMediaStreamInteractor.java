@@ -23,7 +23,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * WebRTC stream management
+ * This class is used to create audio and video tracks using WebRTC api.
+ */
 public class LocalMediaStreamInteractor {
     private PeerConnectionFactory factory;
     private VideoSource videoSource;

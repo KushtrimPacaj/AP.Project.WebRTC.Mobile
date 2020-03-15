@@ -27,6 +27,21 @@ import org.webrtc.audio.AudioDeviceModule;
 import java.util.EnumSet;
 
 
+/**
+ * Manager for all things WebRTC
+ *
+ * First method called that starts the flow is onUserJoined...
+ *    User A                                            UserB
+ * onUserJoined
+ * createOffer [addTrack]
+ * [setLocalDescription]     ---sends-offer-->           onReceivedOffer
+ *                                                       [setRemoteDescription]
+ *                                                       createAnswer  [addTrack]
+ * onReceivedAnswer           <--sends-answer--         [setLocalDescription]
+ * [setRemoveDescription]
+ *
+ * Parts with "[]" are WebRTC API
+ */
 public class WebRtcInteractor {
 
 
@@ -44,7 +59,7 @@ public class WebRtcInteractor {
         this.signalingChannel = signalingChannel;
         factory = createPeerConnectionFactory();
         localMediaStreamInteractor = new LocalMediaStreamInteractor(factory);
-        peerConnectionInteractor = new PeerConnectionInteractor(factory, localMediaStreamInteractor);
+        peerConnectionInteractor = new PeerConnectionInteractor(factory);
         iceCandidateInteractor = new IceCandidateInteractor();
         EventBus.getDefault().register(this);
         enableAdvancedLoggingIfRequested();
