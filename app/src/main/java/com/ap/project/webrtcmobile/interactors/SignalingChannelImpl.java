@@ -19,6 +19,7 @@ import com.ap.project.webrtcmobile.models.SdpModel;
 import com.ap.project.webrtcmobile.models.WebrtcOfferAnswerExchangeModel;
 import com.ap.project.webrtcmobile.utils.APPreferences;
 import com.ap.project.webrtcmobile.utils.LogTag;
+import com.ap.project.webrtcmobile.utils.ServerInfoInteractor;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +54,7 @@ public class SignalingChannelImpl implements SignalingChannel {
     public void connect() {
         Log.d(LogTag.CALLS, "Connect to calls server was invoked");
         try {
-            socket = IO.socket(getServerURL(), null);
+            socket = IO.socket(ServerInfoInteractor.getServerURL(), null);
             subscribeOnSocketLifecycleMethods();
             subscribeOnCustomMethods();
             socket.connect();
@@ -326,29 +327,6 @@ public class SignalingChannelImpl implements SignalingChannel {
         return new Gson().fromJson(args[0].toString(), tClass);
     }
 
-    private static String getServerURL() {
-        if ((Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-                || Build.FINGERPRINT.startsWith("generic")
-                || Build.FINGERPRINT.startsWith("unknown")
-                || Build.HARDWARE.contains("goldfish")
-                || Build.HARDWARE.contains("ranchu")
-                || Build.MODEL.contains("google_sdk")
-                || Build.MODEL.contains("Emulator")
-                || Build.MODEL.contains("Android SDK built for x86")
-                || Build.MANUFACTURER.contains("Genymotion")
-                || Build.PRODUCT.contains("sdk_google")
-                || Build.PRODUCT.contains("google_sdk")
-                || Build.PRODUCT.contains("sdk")
-                || Build.PRODUCT.contains("sdk_x86")
-                || Build.PRODUCT.contains("vbox86p")
-                || Build.PRODUCT.contains("emulator")
-                || Build.PRODUCT.contains("simulator")) {
-            //emulators can refer to their host via this IP.
-            return "http://10.0.2.2:3000/";
-        } else {
-            return "http://192.168.1.118:3000/";
-        }
-    }
 
 
 }
