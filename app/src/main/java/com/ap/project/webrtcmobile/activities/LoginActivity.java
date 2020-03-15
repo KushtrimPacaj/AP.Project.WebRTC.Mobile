@@ -1,46 +1,44 @@
 package com.ap.project.webrtcmobile.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ap.project.webrtcmobile.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ap.project.webrtcmobile.databinding.ActivityLoginBinding;
 import com.ap.project.webrtcmobile.utils.APPreferences;
 
 import java.util.UUID;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ActivityLoginBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Button btnSave= (Button) findViewById(R.id.btnSave);
-        EditText txtUsername = (EditText)findViewById(R.id.txtUsername);
+        initViews();
+    }
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String username = txtUsername.getText().toString();
-
-                if(username.length() < 5) {
-                    Toast.makeText(getApplicationContext(),"Username too short",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else{
-                    APPreferences.setUserName(username);
-                    APPreferences.setUserId(UUID.randomUUID().toString());
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
+    private void initViews() {
+        binding.btnSave.setOnClickListener(v -> {
+            String username = binding.txtUsername.getText().toString();
+            if (username.length() < 5) {
+                Toast.makeText(getApplicationContext(), "Username too short", Toast.LENGTH_SHORT).show();
+            } else {
+                APPreferences.setUserName(username);
+                APPreferences.setUserId(UUID.randomUUID().toString());
+                goToMainScreen();
             }
         });
+    }
 
+    private void goToMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
