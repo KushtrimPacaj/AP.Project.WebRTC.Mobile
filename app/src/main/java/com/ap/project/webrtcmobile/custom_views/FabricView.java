@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.ap.project.webrtcmobile.custom_views.DrawableObjects.CDrawable;
 import com.ap.project.webrtcmobile.custom_views.DrawableObjects.CPath;
-import com.ap.project.webrtcmobile.custom_views.DrawableObjects.CTransform;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -103,10 +102,6 @@ public class FabricView extends View {
         for (int i = 0; i < mDrawableList.size(); i++) {
             try {
                 CDrawable d = mDrawableList.get(i);
-                if (d instanceof CTransform) {
-                    continue;
-                }
-
                 Rect bounds = d.computeBounds();
                 totalBounds.union(bounds);
                 d.draw(canvas);

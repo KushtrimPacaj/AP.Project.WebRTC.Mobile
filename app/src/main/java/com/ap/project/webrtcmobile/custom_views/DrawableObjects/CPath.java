@@ -64,10 +64,6 @@ public class CPath extends CDrawable {
     @Override
     public void draw(Canvas canvas) {
         Matrix matrix = new Matrix();
-        for (CTransform t :
-                getTransforms()) {
-            t.applyTransform(matrix);
-        }
         Path copy = new Path(mPath);
         copy.transform(matrix);
         canvas.drawPath(copy, getPaint());

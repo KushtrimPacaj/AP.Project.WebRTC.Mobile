@@ -1,15 +1,11 @@
 package com.ap.project.webrtcmobile.custom_views.DrawableObjects;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by antwan on 10/3/2015.
@@ -26,7 +22,6 @@ public abstract class CDrawable {
 
     private int x, y, height, width;
     private Paint mPaint;
-    private List<CTransform> mTransforms = new ArrayList<>();
     private Rect lastBounds = null;
 
 
@@ -153,10 +148,6 @@ public abstract class CDrawable {
     public Rect computeBounds() {
         RectF bounds = new RectF(x, y, x+width, y+height);
         Matrix m = new Matrix();
-        for (CTransform t :
-                mTransforms) {
-            t.applyTransform(m);
-        }
         m.mapRect(bounds);
         lastBounds = new Rect();
         bounds.round(lastBounds);
@@ -172,30 +163,6 @@ public abstract class CDrawable {
             lastBounds = new Rect(x, y, r, b);
         }
         return lastBounds;
-    }
-
-    /**
-     * @return true if this object has transforms attached to it.
-     */
-    public boolean hasTransforms() {
-        return !mTransforms.isEmpty();
-    }
-
-    /**
-     * Cancels a transform. Be careful as all other transforms are still on the stack. This
-     * can produce weird results if you don't start from the top of the stack.
-     * @param transform The transform to cancel.
-     */
-    public void removeTransform(CTransform transform) {
-        mTransforms.remove(transform);
-    }
-
-    /**
-     * Adds a transform to this object, at the top of the stack.
-     * @param transform The transform to add.
-     */
-    public void addTransform(CTransform transform) {
-        mTransforms.add(transform);
     }
 
     @Override
@@ -220,10 +187,5 @@ public abstract class CDrawable {
                 other.getPaint() == this.getPaint();
     }
 
-    /**
-     * @return The stack of all transforms attached to this object.
-     */
-    public List<CTransform> getTransforms() {
-        return mTransforms;
-    }
+
 }
