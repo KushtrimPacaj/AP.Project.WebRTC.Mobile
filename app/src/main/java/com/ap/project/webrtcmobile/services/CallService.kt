@@ -238,6 +238,14 @@ class CallService : Service(), SignalingChannelEvents {
     }
 
 
+
+    @Subscribe
+    public fun onEvent(event: SwitchCameraEvent) {
+       webRtcInteractor.switchCamera()
+    }
+
+
+
     override fun onBind(intent: Intent): Nothing? = null
 
 }

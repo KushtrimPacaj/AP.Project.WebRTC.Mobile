@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.ap.project.webrtcmobile.custom_views.DrawableObjects.CPath
 import com.ap.project.webrtcmobile.databinding.ActivityOutgoingBinding
 import com.ap.project.webrtcmobile.events.EndCallEvent
+import com.ap.project.webrtcmobile.events.SwitchCameraEvent
 import com.ap.project.webrtcmobile.interactors.initWithDefaultEglContext
 import com.ap.project.webrtcmobile.interactors.removeAllTracksFromRenderer
 import com.ap.project.webrtcmobile.interactors.replaceTrackInRenderer
@@ -48,6 +49,10 @@ class OutgoingActivity : MvpActivity<OutgoingView, OutgoingPresenter>(), Outgoin
             requestLayout()
             initWithDefaultEglContext()
         }
+        binding.switchCamera.setOnClickListener {
+            EventBus.getDefault().post(SwitchCameraEvent())
+
+        }
 
         binding.endCall.setOnClickListener {
             EventBus.getDefault().post(EndCallEvent())
@@ -56,6 +61,7 @@ class OutgoingActivity : MvpActivity<OutgoingView, OutgoingPresenter>(), Outgoin
         binding.localRenderer.setOnClickListener {
             binding.localRenderer.swapFeedsWith(binding.remoteRenderer)
         }
+
     }
 
     override fun onStop() {

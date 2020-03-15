@@ -220,4 +220,7 @@ public class WebRtcInteractor {
     }
 
 
+    public void switchCamera() {
+        localMediaStreamInteractor.switchCamera();
+    }
 }

@@ -28,7 +28,7 @@ public class LocalMediaStreamInteractor {
     private PeerConnectionFactory factory;
     private VideoSource videoSource;
     private AudioSource audioSource;
-    private VideoCapturer videoCapturer;
+    private CameraVideoCapturer videoCapturer;
 
     private AudioTrack localAudioTrack;
     private VideoTrack localVideoTrack;
@@ -192,4 +192,7 @@ public class LocalMediaStreamInteractor {
         this.factory = factory;
     }
 
+    public void switchCamera() {
+        videoCapturer.switchCamera(null);
+    }
 }
