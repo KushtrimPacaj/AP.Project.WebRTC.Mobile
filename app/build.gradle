@@ -55,6 +55,7 @@ dependencies {
     implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'
     implementation "androidx.core:core-ktx:1.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.karumi:dexter:6.0.2'
 
 
 }
