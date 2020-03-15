@@ -1,33 +1,44 @@
 package com.ap.project.webrtcmobile.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.widget.Toast;
 
-import com.ap.project.webrtcmobile.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ap.project.webrtcmobile.databinding.ActivityLoginBinding;
 import com.ap.project.webrtcmobile.utils.APPreferences;
 
 import java.util.UUID;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ActivityLoginBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        initViews();
+    }
 
-        //TODO replace this with logic that gets the input from user
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+    private void initViews() {
+        binding.btnSave.setOnClickListener(v -> {
+            String username = binding.txtUsername.getText().toString();
+            if (username.length() < 5) {
+                Toast.makeText(getApplicationContext(), "Username too short", Toast.LENGTH_SHORT).show();
+            } else {
+                APPreferences.setUserName(username);
+                APPreferences.setUserId(UUID.randomUUID().toString());
+                goToMainScreen();
+            }
+        });
+    }
 
-            APPreferences.setUserName("Kushtrim");
-            APPreferences.setUserId(UUID.randomUUID().toString());
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }, 2000);
-
+    private void goToMainScreen() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
