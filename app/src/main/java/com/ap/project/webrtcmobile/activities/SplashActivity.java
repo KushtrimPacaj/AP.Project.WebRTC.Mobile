@@ -1,12 +1,10 @@
-package com.ap.project.webrtcmobile;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.ap.project.webrtcmobile.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.ap.project.webrtcmobile.activities.LoginActivity;
-import com.ap.project.webrtcmobile.activities.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.ap.project.webrtcmobile.utils.APPreferences;
 
 public class SplashActivity extends AppCompatActivity {

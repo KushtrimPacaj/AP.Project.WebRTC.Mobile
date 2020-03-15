@@ -9,7 +9,11 @@ The project uses WebRTC to achieve audio/video calling between two peers.
 Related project: https://github.com/KushtrimPacaj/AP.Project.WebRTC.Signaling  ( signaling implementation ).  
 
 
+
 Students:  
 * Kushtrim Pacaj
 * Kujtim Hyseni
 * Donika Sfishta
+
+
+Copyright© 2020 Kushtrim Pacaj.  All rights reserved
