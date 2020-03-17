@@ -106,6 +106,8 @@ class CallService : Service(), SignalingChannelEvents {
     @Subscribe
     public fun onEvent(event: AcceptCallEvent) {
         val pendingLambda: () -> Unit = {
+            eventBus.post(DestroyIncomingView())
+
             val audioTrack = webRtcInteractor.getOrCreateAudioTrack()
             val videoTrack = webRtcInteractor.getOrCreateVideoTrack()
             eventBus.post(OnLocalStreamChangeEvent(audioTrack, videoTrack))

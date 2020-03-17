@@ -1,5 +1,8 @@
 package com.ap.project.webrtcmobile.activities;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,7 @@ public class IncomingActivity extends AppCompatActivity {
 
     private ActivityIncomingBinding binding;
     private EventBus eventBus = EventBus.getDefault();
+    private Ringtone ringtone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,9 @@ public class IncomingActivity extends AppCompatActivity {
         eventBus.register(this);
         fillView();
         setActions();
+
+        ringtone = RingtoneManager.getRingtone(this,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+        ringtone.play();
     }
 
     private void setActions() {
@@ -41,6 +48,7 @@ public class IncomingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ringtone.stop();
         eventBus.unregister(this);
     }
 
