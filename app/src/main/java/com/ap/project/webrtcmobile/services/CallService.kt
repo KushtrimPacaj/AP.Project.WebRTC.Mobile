@@ -80,8 +80,8 @@ class CallService : Service(), SignalingChannelEvents {
         val notification = NotificationCompat.Builder(this, channelId)
                 .setContentTitle("Call service!")
                 .setContentText("WebRTC Mobile")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_foreground))
+                .setSmallIcon(android.R.drawable.ic_menu_call)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, android.R.drawable.ic_menu_call))
                 .setTicker("WebRTC Mobile")
                 .build()
 
