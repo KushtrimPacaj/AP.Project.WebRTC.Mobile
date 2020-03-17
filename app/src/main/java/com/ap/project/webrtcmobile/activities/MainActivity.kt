@@ -45,11 +45,12 @@ class MainActivity : MvpActivity<MainView?, MainPresenter>(), MainView, UserAdap
     }
 
     override fun onUserWentOffline(model: ClientInfo) {
-        userAdapter.addModel(model)
+        userAdapter.removeModel(model)
     }
 
     override fun onUserCameOnline(model: ClientInfo) {
-        userAdapter.removeModel(model)
+        userAdapter.addModel(model)
+
     }
 
     override fun onCallUserInvoked(model: ClientInfo) {
