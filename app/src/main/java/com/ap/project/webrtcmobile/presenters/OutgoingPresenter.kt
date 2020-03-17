@@ -1,5 +1,8 @@
 package com.ap.project.webrtcmobile.presenters
 
+import android.content.Context
+import android.media.AudioManager
+import com.ap.project.webrtcmobile.WebRtcMobileApp
 import com.ap.project.webrtcmobile.events.*
 import com.ap.project.webrtcmobile.view_interfaces.OutgoingView
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
@@ -13,6 +16,10 @@ import java.util.concurrent.TimeUnit
 
 class OutgoingPresenter : MvpBasePresenter<OutgoingView>() {
 
+    private val applicationContext = WebRtcMobileApp.getInstance()
+    private val audioManager: AudioManager by lazy {
+        applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    }
 
     private var subscription: Subscription? = null
 
@@ -22,6 +29,12 @@ class OutgoingPresenter : MvpBasePresenter<OutgoingView>() {
         EventBus.getDefault().register(this)
         EventBus.getDefault().post(OutgoingViewCreatedEvent())
         subscription = Observable.interval(1, TimeUnit.SECONDS).subscribe { view?.cleanupOldDrawings() }
+
+        with(audioManager){
+            mode = AudioManager.MODE_IN_COMMUNICATION
+            isSpeakerphoneOn = true
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -53,5 +66,9 @@ class OutgoingPresenter : MvpBasePresenter<OutgoingView>() {
     fun destroy() {
         EventBus.getDefault().unregister(this)
         subscription?.unsubscribe()
+        with(audioManager){
+            mode = AudioManager.MODE_NORMAL
+            isSpeakerphoneOn = false
+        }
     }
 }
