@@ -16,6 +16,7 @@ import com.ap.project.webrtcmobile.view_interfaces.MainView
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -50,12 +51,12 @@ class MainPresenter : MvpBasePresenter<MainView?>(), LifecycleObserver {
 
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: UserOnlineEvent) {
         view?.onUserCameOnline(event.model)
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: UserOfflineEvent) {
         view?.onUserWentOffline(event.model)
     }

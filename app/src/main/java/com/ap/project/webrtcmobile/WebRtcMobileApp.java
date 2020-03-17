@@ -2,6 +2,7 @@ package com.ap.project.webrtcmobile;
 
 import android.app.Application;
 
+import org.greenrobot.eventbus.EventBus;
 import org.webrtc.EglBase;
 import org.webrtc.Logging;
 import org.webrtc.PeerConnectionFactory;
@@ -17,6 +18,7 @@ public class WebRtcMobileApp extends Application {
         super.onCreate();
         instance = this;
         initWebRTC();
+        EventBus.builder().throwSubscriberException(true).installDefaultEventBus();
     }
 
 
