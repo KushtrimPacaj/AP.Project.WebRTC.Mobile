@@ -64,7 +64,7 @@ public class FabricView extends View {
 
     public void addCPath(CPath path) {
         mDrawableList.add(path);
-        invalidate();
+        postInvalidate();
     }
 
 
@@ -242,7 +242,7 @@ public class FabricView extends View {
                 }
             }
         }
-        if (changedStuff) invalidate();
+        if (changedStuff) postInvalidate();
     }
 
 
