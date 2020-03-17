@@ -44,6 +44,11 @@ public class IncomingActivity extends AppCompatActivity {
         eventBus.unregister(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        eventBus.post(new DeclineCallEvent());
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(DestroyIncomingView event) {
