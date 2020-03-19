@@ -30,7 +30,11 @@ To test this app:
 5. Repeat steps 3/4 for another phone.
 6. Make a CALL!!!!
 
+App class diagram:  
 
+<img src="https://github.com/KushtrimPacaj/AP.Project.WebRTC.Mobile/blob/master/diagrams/app_class_diagram.png" width="80%"/>  
+WebRTC diagram:   
+<img src="https://github.com/KushtrimPacaj/AP.Project.WebRTC.Mobile/blob/master/diagrams/webrtc_diagram.png" width="80%"/>
 
 Students:  
 * Kushtrim Pacaj
